@@ -147,6 +147,7 @@ const columns = document.querySelectorAll(".task-column .tasks");
 columns.forEach(function (column) {
   column.addEventListener("dragover", function (event) {
     event.preventDefault();
+    movePlaceholder(event);
   });
 
   column.addEventListener("drop", function (event) {
@@ -156,17 +157,67 @@ columns.forEach(function (column) {
     const draggedTask = document.getElementById(id);
 
     if (draggedTask) {
-      event.currentTarget.appendChild(draggedTask);
-
-      const foundTask = tasks.find(task => task.id === draggedTask.id);
+    
+    const foundTask = tasks.find(task => task.id === draggedTask.id);
 
       if (foundTask) {
         foundTask.status = current_id;
         saveTasks();
       }
     }
+
+    const placeholder = column.querySelector(".placeholder");
+    if (!placeholder) return;
+    draggedTask.remove();
+    column.insertBefore(draggedTask, placeholder);
+   
+    placeholder.remove();
   });
 });
+
+// The following function set is used to create the placeholder upon hovering
+
+function makePlaceholder(draggedTask) {
+  const placeholder = document.createElement("li");
+  placeholder.classList.add("placeholder");
+  placeholder.style.height = `${draggedTask.offsetHeight}px`;
+  return placeholder;
+}
+
+function movePlaceholder(event) {
+  event.preventDefault();
+  const draggedTask = document.querySelector(".dragging");
+  const taskList = event.currentTarget;
+  const existingPlaceholder = taskList.querySelector(".placeholder");
+
+  if (existingPlaceholder) {
+  const placeholderRect = existingPlaceholder.getBoundingClientRect();
+  if (
+    placeholderRect.top <= event.clientY &&
+    placeholderRect.bottom >= event.clientY
+  ) {
+    return;
+  }
+  }
+for (const task of taskList.children) {
+  if (task.classList.contains("placeholder") ) continue;
+  if (task.getBoundingClientRect().bottom >= event.clientY) {
+    if (task === existingPlaceholder) return;
+    existingPlaceholder?.remove();
+    if (task === draggedTask || task.previousElementSibling === draggedTask)
+      return;
+    taskList.insertBefore(
+      existingPlaceholder ?? makePlaceholder(draggedTask),
+      task,
+    );
+    return;
+  }
+}
+existingPlaceholder?.remove();
+  if (taskList.lastElementChild === draggedTask) return;
+  taskList.append(existingPlaceholder ?? makePlaceholder(draggedTask));
+}
+
 
 // Load tasks on startup
 loadTasks();
