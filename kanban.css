@@ -214,3 +214,15 @@ hr {
     flex-direction: column;
   }
 }
+
+/*
+  The following placeholder item, is used to mark
+  the landing location of each dragged item.
+*/
+.placeholder {
+  border: 1px solid #eeee;
+  border-radius: var(--radius-lg);;
+  background-color: #121212;
+
+  opacity: 70%;
+}
