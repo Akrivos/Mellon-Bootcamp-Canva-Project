@@ -84,6 +84,7 @@ function renderTask(task) {
   const newTaskDelBtn = document.createElement("button")
   newTaskDelBtn.textContent = "Delete";
   newTaskDelBtn.classList.add("delete-btn");
+  newTaskDelBtn.id = "taskDelBtn"; // id added to control language change
 
   newTaskInfo.appendChild(newTaskTitle);
   newTaskInfo.appendChild(newTaskDescription);
@@ -175,47 +176,174 @@ columns.forEach(function (column) {
   });
 });
 
-// The following function set is used to create the placeholder upon hovering
 
-function makePlaceholder(draggedTask) {
-  const placeholder = document.createElement("li");
-  placeholder.classList.add("placeholder");
-  placeholder.style.height = `${draggedTask.offsetHeight}px`;
-  return placeholder;
+//change lang
+
+//get modes
+const engMode = document.getElementById("engMode");
+const grMode = document.getElementById("grMode");
+const engInp = document.getElementById("engInp");
+const grInp = document.getElementById("grInp");
+
+//initialize inputs to be checked on english
+engInp.checked = true;
+grInp.checked = false;
+
+//handle click listeners
+engMode.addEventListener("click", ()=>{
+  location.hash = '#eng';
+  location.reload();
+})
+grMode.addEventListener("click", ()=>{
+  location.hash = '#gr';
+  location.reload();
+})
+
+// Define the language reload anchors
+let language = {
+    gr: {
+        taskTitle: "Όνομα Εργασίας: ",
+        taskDescription: "Περιγραφή Εργασίας: ",
+        submitBtn: "Υποβολή",
+        toDo: "Προς Υλοποίηση",
+        inProgress:"Σε Εξέλιξη",
+        done: "Ολοκληρωμένες",
+        delBtn: "Διαγραφή"
+    }
 }
 
-function movePlaceholder(event) {
-  event.preventDefault();
-  const draggedTask = document.querySelector(".dragging");
-  const taskList = event.currentTarget;
-  const existingPlaceholder = taskList.querySelector(".placeholder");
+//get elements
+let taskTitleHeader = document.getElementById("taskTitleHeader");
+let taskDescriptionHeader = document.getElementById("taskDescriptionHeader");
+let toDoHeader = document.getElementById("toDoHeader");
+let onProgressHeader = document.getElementById("onProgressHeader");
+let doneHeader = document.getElementById("doneHeader");
+let createTask = document.getElementById("createTaskBtn"); 
 
-  if (existingPlaceholder) {
-  const placeholderRect = existingPlaceholder.getBoundingClientRect();
-  if (
-    placeholderRect.top <= event.clientY &&
-    placeholderRect.bottom >= event.clientY
-  ) {
-    return;
-  }
-  }
-for (const task of taskList.children) {
-  if (task.classList.contains("placeholder") ) continue;
-  if (task.getBoundingClientRect().bottom >= event.clientY) {
-    if (task === existingPlaceholder) return;
-    existingPlaceholder?.remove();
-    if (task === draggedTask || task.previousElementSibling === draggedTask)
-      return;
-    taskList.insertBefore(
-      existingPlaceholder ?? makePlaceholder(draggedTask),
-      task,
-    );
-    return;
-  }
+if (window.location.hash) {
+
+  // Set the content of the webpage
+  // depending on the hash value
+  if (window.location.hash == "#gr") {
+
+      //change check sign in inputs
+      engInp.checked = false;
+      grInp.checked = true;
+
+      //change context in headers and buttons
+      taskTitleHeader.textContent = language.gr.taskTitle;
+      taskDescriptionHeader.textContent = language.gr.taskDescription;
+      toDoHeader.textContent = language.gr.toDo;
+      onProgressHeader.textContent = language.gr.inProgress;
+      doneHeader.textContent = language.gr.done;
+      createTask.textContent = language.gr.submitBtn;
+
+      //add observer to check if ui is changed (delete btn is added)
+      let observer = new MutationObserver(() => {
+        let taskDelBtn = document.getElementById("taskDelBtn");
+        let taskDelBtns = document.querySelectorAll(".delete-btn");
+        if (taskDelBtns.length > 0) {
+            observer.disconnect();
+
+            for (let btn of taskDelBtns) {
+                btn.textContent = language.gr.delBtn;
+            }
+        }
+      });
+      observer.observe(document.body, {
+          childList: true,
+          subtree: true
+      });
+    }
+    else if(window.location.hash == "#eng"){
+        engInp.checked = true;
+        grInp.checked = false;        
+    }
 }
-existingPlaceholder?.remove();
-  if (taskList.lastElementChild === draggedTask) return;
-  taskList.append(existingPlaceholder ?? makePlaceholder(draggedTask));
+
+
+//change lang
+
+//get modes
+const engMode = document.getElementById("engMode");
+const grMode = document.getElementById("grMode");
+const engInp = document.getElementById("engInp");
+const grInp = document.getElementById("grInp");
+
+//initialize inputs to be checked on english
+engInp.checked = true;
+grInp.checked = false;
+
+//handle click listeners
+engMode.addEventListener("click", ()=>{
+  location.hash = '#eng';
+  location.reload();
+})
+grMode.addEventListener("click", ()=>{
+  location.hash = '#gr';
+  location.reload();
+})
+
+// Define the language reload anchors
+let language = {
+    gr: {
+        taskTitle: "Όνομα Εργασίας: ",
+        taskDescription: "Περιγραφή Εργασίας: ",
+        submitBtn: "Υποβολή",
+        toDo: "Προς Υλοποίηση",
+        inProgress:"Σε Εξέλιξη",
+        done: "Ολοκληρωμένες",
+        delBtn: "Διαγραφή"
+    }
+}
+
+//get elements
+let taskTitleHeader = document.getElementById("taskTitleHeader");
+let taskDescriptionHeader = document.getElementById("taskDescriptionHeader");
+let toDoHeader = document.getElementById("toDoHeader");
+let onProgressHeader = document.getElementById("onProgressHeader");
+let doneHeader = document.getElementById("doneHeader");
+let createTask = document.getElementById("createTaskBtn"); 
+
+if (window.location.hash) {
+
+  // Set the content of the webpage
+  // depending on the hash value
+  if (window.location.hash == "#gr") {
+
+      //change check sign in inputs
+      engInp.checked = false;
+      grInp.checked = true;
+
+      //change context in headers and buttons
+      taskTitleHeader.textContent = language.gr.taskTitle;
+      taskDescriptionHeader.textContent = language.gr.taskDescription;
+      toDoHeader.textContent = language.gr.toDo;
+      onProgressHeader.textContent = language.gr.inProgress;
+      doneHeader.textContent = language.gr.done;
+      createTask.textContent = language.gr.submitBtn;
+
+      //add observer to check if ui is changed (delete btn is added)
+      let observer = new MutationObserver(() => {
+        let taskDelBtn = document.getElementById("taskDelBtn");
+        let taskDelBtns = document.querySelectorAll(".delete-btn");
+        if (taskDelBtns.length > 0) {
+            observer.disconnect();
+
+            for (let btn of taskDelBtns) {
+                btn.textContent = language.gr.delBtn;
+            }
+        }
+      });
+      observer.observe(document.body, {
+          childList: true,
+          subtree: true
+      });
+    }
+    else if(window.location.hash == "#eng"){
+        engInp.checked = true;
+        grInp.checked = false;        
+    }
 }
 
 
