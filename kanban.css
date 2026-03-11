@@ -87,7 +87,9 @@ h2 {
   border-radius: var(--radius-pill);
   font-weight: 600;
   cursor: pointer;
-  transition: background-color 0.2s, transform 0.1s;
+  transition:
+    background-color 0.2s,
+    transform 0.1s;
 }
 
 .CreateTask:hover {
@@ -105,7 +107,7 @@ hr {
 .container {
   display: flex;
   gap: 20px;
-  align-items: flex-start;
+  min-height: 300px;
 }
 
 .task-column {
@@ -145,7 +147,10 @@ hr {
   border-radius: var(--radius-md);
   padding: 15px;
   cursor: grab;
-  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+  transition:
+    transform 0.2s,
+    box-shadow 0.2s,
+    border-color 0.2s;
 }
 
 .task:hover {
