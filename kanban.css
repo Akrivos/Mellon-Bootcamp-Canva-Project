@@ -1,0 +1,216 @@
+:root {
+  --bg-color: #121212;
+  --surface-color: #1e1e1e;
+  --surface-hover: #2c2c2c;
+  --text-primary: #e0e0e0;
+  --text-secondary: #a0a0a0;
+  --border-color: #333333;
+  --accent-color: #3b82f6;
+  --accent-hover: #2563eb;
+  --danger-color: #cf6679;
+  --danger-hover: #b05566;
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-pill: 50px;
+}
+
+body {
+  font-family: "Inter", "Segoe UI", sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  margin: 0;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+h2 {
+  margin-top: 0;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: var(--surface-color);
+  padding: 20px 30px;
+  border-radius: var(--radius-lg);
+  margin-bottom: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.header h2 {
+  margin: 0;
+  color: var(--accent-color);
+}
+
+.TaskCreator {
+  display: flex;
+  align-items: center;
+}
+
+#TaskCreator {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+#TaskCreator label {
+  font-size: 0.9em;
+  color: var(--text-secondary);
+}
+
+#TaskCreator input {
+  background-color: var(--bg-color);
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  padding: 10px 15px;
+  border-radius: var(--radius-pill);
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+#TaskCreator input:focus {
+  border-color: var(--accent-color);
+}
+
+.CreateTask {
+  background-color: var(--accent-color);
+  color: #000;
+  border: none;
+  padding: 10px 20px;
+  border-radius: var(--radius-pill);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+}
+
+.CreateTask:hover {
+  background-color: var(--accent-hover);
+}
+
+.CreateTask:active {
+  transform: scale(0.97);
+}
+
+hr {
+  display: none;
+}
+
+.container {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.task-column {
+  background-color: var(--surface-color);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  flex: 1;
+  min-width: 250px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+}
+
+.task-column h2 {
+  text-align: center;
+  margin-bottom: 15px;
+  color: var(--text-primary);
+  font-size: 1.2em;
+  padding-bottom: 10px;
+  border-bottom: 2px solid var(--border-color);
+}
+
+.tasks {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  min-height: 200px;
+  flex-grow: 1;
+}
+
+.task {
+  background-color: var(--bg-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  padding: 15px;
+  cursor: grab;
+  transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+}
+
+.task:hover {
+  border-color: var(--text-secondary);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  transform: translateY(-2px);
+}
+
+.task:active {
+  cursor: grabbing;
+}
+
+.task.dragging {
+  opacity: 0.5;
+  border: 2px dashed var(--accent-color);
+}
+
+.Task-Info {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.TaskTitle {
+  font-weight: bold;
+  font-size: 1.1em;
+  color: var(--accent-color);
+}
+
+.TaskDescription {
+  font-size: 0.95em;
+  color: var(--text-primary);
+  line-height: 1.4;
+}
+
+.TaskTime {
+  font-size: 0.8em;
+  color: var(--text-secondary);
+  align-self: flex-start;
+  margin-top: 5px;
+}
+
+.delete-btn {
+  background-color: transparent;
+  color: var(--danger-color);
+  border: 1px solid var(--danger-color);
+  padding: 6px 12px;
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  align-self: flex-start;
+  font-size: 0.85em;
+  transition: all 0.2s;
+  margin-top: 10px;
+}
+
+.delete-btn:hover {
+  background-color: var(--danger-color);
+  color: #fff;
+}
+
+@media (max-width: 800px) {
+  .container {
+    flex-direction: column;
+  }
+}
