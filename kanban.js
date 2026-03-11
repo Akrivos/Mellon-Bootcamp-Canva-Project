@@ -170,3 +170,26 @@ columns.forEach(function (column) {
 
 // Load tasks on startup
 loadTasks();
+
+//Take the theme from localStorage
+const savedTheme = localStorage.getItem("theme");
+if (savedTheme) {
+  document.getElementById("body").setAttribute("data-theme", savedTheme);
+}
+
+//Toggle the theme
+const themeToggle = document.getElementById("themeToggle");
+
+//Add event listener to the themeToggle button
+themeToggle.addEventListener("click", function () {
+  console.log("themeToggle clicked");
+  const currentThemeSetting = document.getElementById("body").getAttribute("data-theme");
+  let newTheme;
+  if (currentThemeSetting === "dark") {
+    newTheme = "light"
+  } else {
+    newTheme = "dark"
+  }
+  document.getElementById("body").setAttribute("data-theme", newTheme);
+  localStorage.setItem("theme", newTheme);
+});
