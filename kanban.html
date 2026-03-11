@@ -22,11 +22,11 @@
     <div class="header-childs">
       <div class="TaskCreator">
         <form id="TaskCreator">
-          <label for="TaskTitle">Task Title:</label>
+          <label for="TaskTitle" id="taskTitleHeader">Task Title:</label>
           <input type="text" id="TaskTitle" name="ttitle" required><br>
-          <label for="TaskDesc">Task Description:</label>
+          <label for="TaskDesc" id="taskDescriptionHeader">Task Description:</label>
           <input type="text" id="TaskDesc" name="tdesc" required><br>
-          <button type="submit" class="CreateTask">Submit</button>
+          <button id="createTaskBtn" type="submit" class="CreateTask">Submit</button>
         </form>
       </div>
     </div>
@@ -34,24 +34,35 @@
   <hr>
   <div class="container">
     <div class="task-column">
-      <h2>To Do</h2>
+      <h2 id="toDoHeader">To Do</h2>
       <ul class="tasks" id="ToDoTasks">
 
       </ul>
     </div>
     <div class="task-column">
-      <h2>In Progress</h2>
+      <h2 id="onProgressHeader">In Progress</h2>
       <ul class="tasks" id="InProgressTasks">
 
       </ul>
     </div>
     <div class="task-column">
-      <h2>Done</h2>
+      <h2 id="doneHeader">Done</h2>
       <ul class="tasks" id="DoneTasks">
 
       </ul>
     </div>
   </div>
+
+  <!-- CHECKBOXES TO CHANGE LANG -->
+  <label class="container-lang" id="engMode">English
+    <input type="radio" id="engInp" name="radio">
+    <span class="checkmark"></span>
+  </label>
+  <label class="container-lang" id="grMode">Greek
+    <input type="radio" id="grInp" name="radio">
+    <span class="checkmark"></span>
+  </label>
+
 </body>
 
 </html>
